@@ -51,13 +51,6 @@ const winCombinations = [
 // Сюда записываются все предыдущие игры
 let storedGames = [];
 
-let allGamesResults = [
-    {gameCount: '5', step:5, winner: 'cross'},
-];
-
-
-
-
 
 const gameResult = {
     gameCount: 1,
@@ -191,25 +184,11 @@ function storeGameResult () {
     
     gameResult.gameCount = counterAllGames;
 
-    localStorage.setItem(counterAllGames, JSON.stringify(gameResult));
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    //Результат текущей игры
-    let ThisGame = {gameCount: '5', step:5, winner: 'cross'};
-    
-
     // Получили весь массив из стоража
     let inputFromLocal = JSON.parse(localStorage.getItem(LOCAL_KEY));
 
-    
+    //Результат текущей игры
+    let ThisGame = {gameCount: gameResult.gameCount, step: gameResult.step, winner: gameResult.winner};
 
     if (inputFromLocal === null) {
         localStorage.setItem(LOCAL_KEY, JSON.stringify([ThisGame]));
@@ -218,50 +197,22 @@ function storeGameResult () {
         inputFromLocal.push(ThisGame);
 
         localStorage.setItem(LOCAL_KEY, JSON.stringify(inputFromLocal));
-
-        debugger;
     }
-
-
-
-
-
-    
-
-    //console.log(allGamesResults);
-
-
-
-
-
 
 }
 
 //Читает из локала все предыдущие игры в storedGames, и количество всех игр
 function readGameResult () {
-    let buffer;
     let realValues = 0;
+    
+    storedGames = JSON.parse(localStorage.getItem(LOCAL_KEY));
 
-    for (let i = 0; i < localStorage.length; i++) {
-        let key = localStorage.key(i);
-        
-        //получаем i-тый объект и localStorage
-        buffer = JSON.parse(localStorage.getItem(key));
-
-        // Сохраняем объект только с ключом 'step'
-        if((!((buffer)=== null)) && ('step' in buffer)) {
-            storedGames[realValues] = buffer;
-            realValues++;
-        }
+    if (storedGames === null) {
+        realValues = 0;
     }
-
-    const inputFromLocal = localStorage.getItem(LOCAL_KEY);
-
-
-
-
-
-
+    else {
+        realValues = storedGames.length;
+    }
 
     return realValues;
 }
