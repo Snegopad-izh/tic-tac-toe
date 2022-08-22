@@ -1,0 +1,11 @@
+Подключения 
+html:
+./assets/img/svg/logo_unvisited.svg
+
+css:
+../img/header-bg.jpg
+
+a:link { color: blue; }          /* Непосещённые ссылки */
+a:visited { color: purple; }     /* Посещённые ссылки */
+a:hover { background: yellow; }  /* Ссылки при наведении */
+a:active { color: red; }         /* Активные ссылки */
